@@ -1,0 +1,28 @@
+{
+  "env": {
+    "node": true,
+    "es2022": true,
+    "browser": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "standard-with-typescript"
+  ],
+  "ignorePatterns": ["dist"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest",
+    "parser": "@typescript-eslint/parser"
+  },
+  "plugins": ["react-refresh"],
+  "rules": {
+    "@typescript-eslint/triple-slash-reference": "off",
+    "react-refresh/only-export-components": [
+      "warn",
+      { "allowConstantExport": true }
+    ]
+  }
+}

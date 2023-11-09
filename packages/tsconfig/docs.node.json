@@ -1,0 +1,11 @@
+{
+  "display": "Storybook Node",
+
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  }
+}

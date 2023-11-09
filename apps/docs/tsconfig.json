@@ -1,0 +1,6 @@
+{
+  "extends": "tsconfig/docs.json",
+  "include": ["src", "vite.config.ts"],
+  "exclude": ["node_modules", "storybook-static"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
