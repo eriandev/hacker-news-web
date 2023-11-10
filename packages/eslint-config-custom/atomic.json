@@ -19,6 +19,7 @@
   },
   "plugins": ["react-refresh"],
   "rules": {
+    "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/triple-slash-reference": "off",
     "react-refresh/only-export-components": [
       "warn",
