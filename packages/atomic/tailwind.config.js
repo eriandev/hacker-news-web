@@ -31,6 +31,11 @@ module.exports = {
       black: '#343434',
       transparent: 'transparent'
     },
+
+    boxShadow: {
+      sm: '0 2px 2px 0 #dad8d8'
+    },
+
     extend: {}
   },
   plugins: []
