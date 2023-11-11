@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./**/*.tsx'],
-  safelist: ['text-sm', 'text-base', 'text-lg'],
+  safelist: ['text-sm', 'text-base', 'text-lg', 'mb-32'],
   theme: {
     fontFamily: {
       roboto: ['Roboto', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif']
