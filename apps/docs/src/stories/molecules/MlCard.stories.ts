@@ -23,6 +23,6 @@ export const Demo: Story = {
     author: 'author',
     createdAt: '3 hours ago',
     storyTitle: 'All the fundamental React.js concepts, jammed into the single Medium article (updated August 2019)',
-    onFav: (isFav) => { console.log(isFav) }
+    onFav: ({ isFav, info }) => { console.log({ isFav, info }) }
   }
 }

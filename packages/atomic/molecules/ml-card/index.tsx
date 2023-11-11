@@ -8,7 +8,7 @@ export type MlCardProps = {
   author: string
   createdAt: string
   storyTitle: string
-  onFav: (isFav: boolean) => void
+  onFav?: (data: { isFav: boolean, info: MlCardProps }) => void
 }
 
 export function MlCard ({ author, createdAt, link, storyTitle, onFav }: MlCardProps): React.JSX.Element {
@@ -16,7 +16,7 @@ export function MlCard ({ author, createdAt, link, storyTitle, onFav }: MlCardPr
 
   const handlerClick = (): void => {
     setIsFav(prev => {
-      onFav(!prev)
+      if (typeof onFav !== 'undefined') onFav({ isFav: !prev, info: { author, createdAt, link, storyTitle } })
       return !prev
     })
   }
