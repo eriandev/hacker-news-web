@@ -32,8 +32,18 @@ module.exports = {
       transparent: 'transparent'
     },
 
+    backgroundImage: {
+      header: 'linear-gradient(to bottom, #ececec -32%, #fff 124%)'
+    },
+
     boxShadow: {
-      sm: '0 2px 2px 0 #dad8d8'
+      sm: '0 2px 2px 0 #dad8d8',
+      md: '0 1px 4px 0 rgba(0,21,41,0.12)'
+    },
+
+    maxWidth: {
+      card: '550px',
+      header: '1140px'
     },
 
     extend: {}

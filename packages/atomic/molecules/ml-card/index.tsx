@@ -23,7 +23,7 @@ export function MlCard ({ author, createdAt, link, storyTitle, onFav }: MlCardPr
 
   return (
     <article
-      className='grid w-full max-w-[550px] cursor-pointer grid-cols-[auto_max-content] items-center rounded-md border border-gray-400 bg-white hover:opacity-40'
+      className='grid w-full max-w-card cursor-pointer grid-cols-[auto_max-content] items-center rounded-md border border-gray-400 bg-white hover:opacity-40'
     >
       <a href={link} className='grid gap-[6px] py-6 pl-[26px] pr-4'>
         <header className='flex items-center gap-2'>
