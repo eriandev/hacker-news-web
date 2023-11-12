@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 
 import { AtText } from '../../atoms'
@@ -8,7 +10,7 @@ export type MlSelectProps = {
   onSelect: (option: string) => void
 }
 
-export function MlSelect ({ onSelect, className = '' }: MlSelectProps): React.JSX.Element {
+export function MlSelect ({ className = '', onSelect }: MlSelectProps): React.JSX.Element {
   const [isActive, setIsActive] = useState<boolean>(false)
   const [optionSelected, setOptionSelected] = useState<string | null>(null)
 
@@ -25,7 +27,7 @@ export function MlSelect ({ onSelect, className = '' }: MlSelectProps): React.JS
   }
 
   return (
-    <div className={`relative w-[240px] text-black ${className}`}>
+    <div className={['relative w-[240px] text-black', className].join(' ').trimEnd()}>
       <header
         className='grid cursor-pointer select-none grid-cols-[auto_max-content] items-center gap-2 rounded-sm border border-gray-700 bg-white px-3 py-[6px]'
         onClick={() => { setIsActive(prev => !prev) }}

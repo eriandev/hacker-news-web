@@ -11,7 +11,7 @@ export function AtText ({ children, className = '', medium = false, tag = 'p', s
   const weightClass = medium ? 'font-medium' : 'font-normal'
 
   return (
-    <CustomTag className={`font-roboto text-${size} ${weightClass} ${className}`}>
+    <CustomTag className={['font-roboto', `text-${size}`, weightClass, className].join(' ').trimEnd()}>
       {children}
     </CustomTag>
   )

@@ -1,0 +1,19 @@
+{
+  "display": "NextJS",
+  "extends": "./base.json",
+
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "ES5",
+    "allowJs": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "skipLibCheck": true,
+    "lib": ["DOM", "DOM.iterable", "ESNext"],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  }
+}

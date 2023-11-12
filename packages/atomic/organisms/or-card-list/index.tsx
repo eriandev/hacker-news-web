@@ -1,3 +1,5 @@
+'use client'
+
 import { AtText } from '../../atoms'
 import { MlCard } from '../../molecules'
 import { PackmanIcon } from '../../atoms/icons'

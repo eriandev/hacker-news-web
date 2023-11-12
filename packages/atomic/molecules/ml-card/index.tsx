@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState } from 'react'
 
 import { AtText } from '../../atoms'
@@ -25,7 +26,7 @@ export function MlCard ({ author, createdAt, link, storyTitle, onFav }: MlCardPr
     <article
       className='grid w-full max-w-card cursor-pointer grid-cols-[auto_max-content] items-center rounded-md border border-gray-400 bg-white hover:opacity-40'
     >
-      <a href={link} className='grid gap-[6px] py-6 pl-[26px] pr-4'>
+      <Link href={link} className='grid gap-[6px] py-6 pl-[26px] pr-4'>
         <header className='flex items-center gap-2'>
           <ClockIcon width={16} height={16} />
           <AtText tag='span' size='sm' className='text-gray-500'>
@@ -35,7 +36,7 @@ export function MlCard ({ author, createdAt, link, storyTitle, onFav }: MlCardPr
         <AtText medium tag='h3' className='text-gray-600'>
           {storyTitle}
         </AtText>
-      </a>
+      </Link>
       <aside
         className="grid h-full w-full place-items-center rounded-br-md rounded-tr-md bg-gray-200 px-[22px]"
         onClick={handlerClick}

@@ -17,15 +17,15 @@ Temporary Items
 .apdisk
 
 ### NextJS ###
-/.next/
-/out/
+.next/
+out/
 
 # testing
 /coverage
 
 # production
-dist/
 build/
+dist/
 
 # debug
 npm-debug.log*

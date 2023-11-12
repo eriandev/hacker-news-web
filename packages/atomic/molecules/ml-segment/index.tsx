@@ -24,7 +24,7 @@ export function MlSegment ({ options, onSelect }: MlSegmentProps): React.JSX.Ele
       {
         options.map(({ text, value }) => (
           <li
-            className={`${baseClass} ${selected === value ? activeClass : inactiveClass}`}
+            className={[baseClass, selected === value ? activeClass : inactiveClass].join(' ')}
             onClick={() => { selectSegment(value) }}
           >
             <AtText medium tag='span' size='lg'>{text}</AtText>
