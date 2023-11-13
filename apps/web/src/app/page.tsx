@@ -1,4 +1,3 @@
-'use client'
 import { TmMainLayout } from 'atomic/templates'
 
 export default function Page (): React.JSX.Element {

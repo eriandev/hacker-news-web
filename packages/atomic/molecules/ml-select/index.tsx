@@ -1,7 +1,7 @@
 'use client'
-
 import { useState } from 'react'
 
+import { clsx } from '../../utils'
 import { AtText } from '../../atoms'
 import { ChevronIcon, LogoAngularIcon, LogoReactIcon, LogoVueIcon } from '../../atoms/icons'
 
@@ -27,9 +27,9 @@ export function MlSelect ({ className = '', onSelect }: MlSelectProps): React.JS
   }
 
   return (
-    <div className={['relative w-[240px] text-black', className].join(' ').trimEnd()}>
+    <div className={clsx(['relative w-[240px] text-black', className])}>
       <header
-        className='grid cursor-pointer select-none grid-cols-[auto_max-content] items-center gap-2 rounded-sm border border-gray-700 bg-white px-3 py-[6px]'
+        className='grid cursor-pointer select-none grid-cols-[auto_max-content] items-center gap-2 rounded-[4px] border border-gray-800 bg-white px-3 py-[6px]'
         onClick={() => { setIsActive(prev => !prev) }}
       >
         <AtText medium tag='span' className='w-max'>
@@ -44,7 +44,7 @@ export function MlSelect ({ className = '', onSelect }: MlSelectProps): React.JS
                 options.map(({ Icon, text }) => (
                   <li
                     key={text}
-                    className='grid cursor-pointer grid-cols-[1.5rem_auto] items-center gap-3 px-2 py-3 capitalize hover:bg-gray-100'
+                    className='grid cursor-pointer grid-cols-[1.5rem_auto] items-center gap-3 px-[10px] py-4 capitalize hover:bg-gray-100'
                     onClick={() => { selectOption(text) }}
                   >
                     <Icon width={24} height={24} />

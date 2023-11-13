@@ -1,3 +1,5 @@
+import { clsx } from '../../utils'
+
 export type AtTextProps = {
   medium?: boolean
   className?: string
@@ -11,7 +13,7 @@ export function AtText ({ children, className = '', medium = false, tag = 'p', s
   const weightClass = medium ? 'font-medium' : 'font-normal'
 
   return (
-    <CustomTag className={['font-roboto', `text-${size}`, weightClass, className].join(' ').trimEnd()}>
+    <CustomTag className={clsx(['font-roboto', `text-${size}`, weightClass, className])}>
       {children}
     </CustomTag>
   )

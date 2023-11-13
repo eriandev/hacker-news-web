@@ -1,3 +1,4 @@
+'use client'
 import { MlSelect } from '../../molecules/ml-select'
 import { OrCardList } from '../../organisms/or-card-list'
 import { MlHeader, type MlHeaderProps } from '../../molecules/ml-header'

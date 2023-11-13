@@ -22,10 +22,12 @@ const config: Config = {
         100: '#FCFCFC',
         200: '#F5F5F5',
         300: '#EAEAEA',
-        400: '#979797',
-        500: '#767676',
-        600: '#6B6B6B',
-        700: '#2E2E2E'
+        400: '#D6D6D6',
+        500: '#979797',
+        600: '#767676',
+        700: '#6B6B6B',
+        800: '#606060',
+        900: '#2E2E2E'
       },
 
       white: '#FFFFFF',
@@ -44,7 +46,7 @@ const config: Config = {
 
     maxWidth: {
       card: '550px',
-      header: '1140px'
+      container: '1140px'
     },
 
     extend: {}

@@ -13,10 +13,10 @@ export const ChevronIcon = ({ height = 24, width = 24, rotate = '0deg' }: IconPr
     fill="none"
     width={width}
     height={height}
-    stroke-width="2"
+    strokeWidth="2"
     stroke="currentColor"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     style={{ transform: `rotate(${rotate})` }}
   >
     <polyline points="18 15 12 9 6 15"></polyline>
