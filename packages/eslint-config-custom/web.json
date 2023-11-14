@@ -1,6 +1,7 @@
 {
   "extends": ["next/core-web-vitals", "standard-with-typescript"],
   "rules": {
+    "react-hooks/exhaustive-deps": "off",
     "@next/next/no-async-client-component": "off"
   }
 }
