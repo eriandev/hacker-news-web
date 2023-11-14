@@ -1,0 +1,1 @@
+export { useNewsService } from './news'

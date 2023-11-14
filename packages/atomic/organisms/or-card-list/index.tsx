@@ -20,14 +20,16 @@ export function OrCardList ({ cards, loading = false, onFavCard }: OrCardListPro
           ))
         }
       </section>
-      {
-        loading
-          ? <aside className='grid w-full justify-items-center py-6 text-center'>
-              <PackmanIcon width={64} height={64} />
-              <AtText medium tag='span'>Loading...</AtText>
-            </aside>
-          : null
-      }
+      <aside className='grid h-36 w-full place-items-center text-center'>
+        {
+          loading
+            ? <div>
+                <PackmanIcon width={64} height={64} />
+                <AtText medium tag='span' size='lg'>Loading...</AtText>
+              </div>
+            : null
+        }
+      </aside>
     </>
   )
 }

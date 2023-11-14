@@ -8,6 +8,9 @@
     "dev": "next dev --turbo",
     "lint": "next lint --fix"
   },
+  "dependencies": {
+    "javascript-time-ago": "2.5.9"
+  },
   "devDependencies": {
     "atomic": "workspace:*",
     "autoprefixer": "10.4.16",
