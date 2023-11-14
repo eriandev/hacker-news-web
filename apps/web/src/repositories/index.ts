@@ -1,0 +1,1 @@
+export { useNewsRepository } from './newsRepository'

@@ -16,10 +16,10 @@ export interface APINewsResponse {
 
 export interface News {
   id: string
-  author: string
   link?: string
-  title: string
-  timestamp: number
+  author: string
+  createdAt: string
+  storyTitle: string
 }
 
 interface Exhaustive {
