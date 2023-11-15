@@ -4,15 +4,16 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "storybook build",
+    "storybook": "storybook",
     "dev": "storybook dev -p 6006",
+    "build": "pnpm atomic:build && storybook build",
+    "atomic:build": "pnpm run --dir ../../packages/atomic build",
     "lint": "eslint --fix {.storybook,src}/**/*.{ts,tsx} --report-unused-disable-directives --max-warnings 0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "7.5.3",
     "@storybook/addon-interactions": "7.5.3",
     "@storybook/addon-links": "7.5.3",
-    "@storybook/addon-onboarding": "1.0.8",
     "@storybook/blocks": "7.5.3",
     "@storybook/nextjs": "7.5.3",
     "@storybook/react": "7.5.3",

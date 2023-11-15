@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta>
 
 export const Demo: Story = {
   args: {
-    className: 'mb-32',
+    className: 'mb-40',
     onSelect: (option) => { console.log(option) }
   }
 }

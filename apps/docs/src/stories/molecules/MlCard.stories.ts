@@ -7,8 +7,10 @@ const meta = {
   component: MlCard,
   tags: ['autodocs'],
   argTypes: {
+    id: { control: 'text' },
     link: { control: 'text' },
     author: { control: 'text' },
+    isFave: { control: 'boolean' },
     createdAt: { control: 'text' },
     storyTitle: { control: 'text' }
   }
@@ -19,10 +21,12 @@ type Story = StoryObj<typeof meta>
 
 export const Demo: Story = {
   args: {
+    id: '1c',
     link: '#',
+    isFave: false,
     author: 'author',
     createdAt: '3 hours ago',
     storyTitle: 'All the fundamental React.js concepts, jammed into the single Medium article (updated August 2019)',
-    onFav: ({ isFav, info }) => { console.log({ isFav, info }) }
+    onFave: (data) => { console.log(data) }
   }
 }

@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: ['./**/*.tsx'],
-  safelist: ['text-sm', 'text-base', 'text-lg', 'text-xl', 'mb-32'],
+  safelist: ['text-sm', 'text-base', 'text-lg', 'text-xl', 'mb-40'],
 
   theme: {
     fontFamily: {

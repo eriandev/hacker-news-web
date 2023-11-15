@@ -9,7 +9,14 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     cards: { control: 'object' },
-    loading: { control: 'boolean' }
+    loading: {
+      control: 'boolean',
+      defaultValue: true
+    },
+    isEmpty: {
+      control: 'boolean',
+      defaultValue: false
+    }
   }
 } satisfies Meta<typeof OrCardList>
 
@@ -18,43 +25,60 @@ type Story = StoryObj<typeof meta>
 
 const cards: MlCardProps[] = [
   {
+    id: '1',
     link: '#',
+    isFave: false,
     author: 'author',
     createdAt: '2 hours ago',
     storyTitle: 'From chaos to free will'
   },
   {
+    id: '2',
     link: '#',
+    isFave: true,
     author: 'author',
     createdAt: '3 hours ago',
     storyTitle: 'Yes, React is taking over front-end development. The question is why.'
   },
   {
+    id: '3',
     link: '#',
+    isFave: false,
     author: 'author',
     createdAt: '4 hours ago',
     storyTitle: 'All the fundamental React.js concepts, jammed into the single Medium article (updated August 2019)'
   },
   {
-    link: 'sdsadasda',
+    id: '4',
+    link: '#',
+    isFave: true,
     author: 'author',
     createdAt: '6 hours ago',
     storyTitle: 'Progressive Web Apps with React.js: Part I - Introduction'
   }
 ]
 
-export const Loaded: Story = {
+export const Empty: Story = {
   args: {
     cards,
+    isEmpty: true,
     loading: false,
-    onFavCard: ({ isFav, info }) => { console.log({ isFav, info }) }
+    onFaveCard: (data) => { console.log(data) }
   }
 }
 
 export const Loading: Story = {
   args: {
-    cards,
+    cards: [],
     loading: true,
-    onFavCard: ({ isFav, info }) => { console.log({ isFav, info }) }
+    onFaveCard: (data) => { console.log(data) }
+  }
+}
+
+export const Loaded: Story = {
+  args: {
+    cards,
+    loading: false,
+    onFaveCard: (data) => { console.log(data) }
   }
 }

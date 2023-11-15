@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "watch": "pnpm tailwindcss -o dist/out.css -w",
-    "build": "pnpm tailwindcss -o dist/out.css --minify",
+    "watch": "pnpm tailwindcss -o dist/atomic.css -w",
+    "build": "pnpm tailwindcss -o dist/atomic.css --minify",
     "lint": "eslint --fix {atoms,molecules,organisms}/**/*.{ts,tsx}"
   },
   "devDependencies": {

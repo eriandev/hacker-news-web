@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react'
-import 'atomic/dist/out.css'
+import 'atomic/dist/atomic.css'
 
 const preview: Preview = {
   parameters: {
