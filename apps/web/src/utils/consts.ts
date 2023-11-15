@@ -6,8 +6,3 @@ export const DATE_UNITS = {
   minute: 60,
   second: 1
 } as const
-
-export const SEGMENT_OPTIONS = [
-  { text: 'All', link: '/' },
-  { text: 'My faves', link: '/faves' }
-]

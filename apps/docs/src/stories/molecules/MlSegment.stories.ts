@@ -10,19 +10,24 @@ const meta = {
     layout: 'centered'
   },
   argTypes: {
-    options: { control: 'object' }
+    active: {
+      control: 'select',
+      options: ['all', 'faves']
+    }
   }
 } satisfies Meta<typeof MlSegment>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Demo: Story = {
+export const AllSelected: Story = {
   args: {
-    options: [
-      { text: 'All', value: 'all' },
-      { text: 'My faves', value: 'faves' }
-    ],
-    onSelect: (optionValue) => { console.log(optionValue) }
+    active: 'all'
+  }
+}
+
+export const FavesSelected: Story = {
+  args: {
+    active: 'faves'
   }
 }
