@@ -7,6 +7,7 @@ import type { MlCardProps } from '../../molecules/ml-card'
 export type TmMainLayoutProps = {
   cards: MlCardProps[]
   loadingCards: boolean
+  emptyCardList: boolean
   headerImgSrc: MlHeaderProps['imageSrc']
   segmentOptions: MlSegmentProps['options']
   onDeleteFaveCard: (id: string) => void
@@ -18,6 +19,7 @@ export function TmMainLayout ({
   cards,
   headerImgSrc,
   loadingCards,
+  emptyCardList,
   segmentOptions,
   onAddFaveCard,
   onChangeSegment,
@@ -37,12 +39,12 @@ export function TmMainLayout ({
   return (
     <>
       <MlHeader imageSrc={headerImgSrc} />
-      <section className='max-w-container mx-auto my-16 flex w-full justify-center'>
+      <section className='mx-auto my-16 flex w-full max-w-container justify-center px-4'>
         <MlSegment onSelect={onSegmentAction} options={segmentOptions} />
       </section>
-      <main className='max-w-container mx-auto w-full'>
+      <main className='mx-auto w-full max-w-container px-4'>
         <MlSelect onSelect={onSelectAction} className='mb-10' />
-        <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} />
+        <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} isEmpty={emptyCardList} />
       </main>
     </>
   )

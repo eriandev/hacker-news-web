@@ -7,20 +7,22 @@ type GetFavesNews = () => void
 type AddsNewsToFave = (fave: News) => void
 type RemovesNewsFaveById = (id: string) => void
 type ChangeSegmentValue = (value: string) => void
-type GetMoreNewsByCategory = (category: string | null) => void
+type GetMoreNews = (opts: { category: string | null, page?: number }) => void
 interface UseNewsLogicReturn {
   cards: News[]
   loading: boolean
+  isEmpty: boolean
+  getMoreNews: GetMoreNews
   addsNewsToFave: AddsNewsToFave
   changeSegmentValue: ChangeSegmentValue
   removesNewsFaveById: RemovesNewsFaveById
-  getMoreNewsByCategory: GetMoreNewsByCategory
 }
 
 export function useNewsLogic (): UseNewsLogicReturn {
   const TOTAL_PAGES = 50
   const [cards, setCards] = useState<News[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const [isEmpty, setIsEmpty] = useState<boolean>(false)
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [isFaveSegment, setIsFaveSegment] = useState<boolean>(false)
   const [currentCategory, setCurrentCategory] = useState<string | null>(null)
@@ -28,7 +30,7 @@ export function useNewsLogic (): UseNewsLogicReturn {
   const newsRepository = useNewsRepository()
   const favesRepository = useFavesRepository()
 
-  useEffect(() => { getMoreNewsByCategory(null) }, [])
+  useEffect(() => { getMoreNews({ category: null, page: 0 }) }, [])
   useEffect(() => {
     const triggerAction = (): void => {
       const { body } = document
@@ -36,26 +38,24 @@ export function useNewsLogic (): UseNewsLogicReturn {
       const scrolled = window.scrollY + window.innerHeight
       const isOnBottom = (limit - 200) <= scrolled
 
-      if (!loading && isOnBottom) getMoreNewsByCategory(currentCategory)
+      if (!loading && isOnBottom) getMoreNews({ category: currentCategory })
     }
 
     window.addEventListener('scroll', triggerAction)
     return () => { window.removeEventListener('scroll', triggerAction) }
   }, [loading, currentCategory])
 
-  const getMoreNewsByCategory: GetMoreNewsByCategory = (category) => {
+  const getMoreNews: GetMoreNews = ({ category, page }) => {
     if (currentCategory !== category) setCurrentPage(0)
     setCurrentCategory(category)
 
     if (currentPage === TOTAL_PAGES) return
+    setIsEmpty(false)
 
     setLoading(true)
     newsRepository
-      .getNews({ category, page: currentPage })
-      .then(news => {
-        setCards(prevNews => [...prevNews, ...news])
-        console.log(news)
-      })
+      .getNews({ category, page: page ?? currentPage })
+      .then(news => { setCards(prevNews => [...prevNews, ...news]) })
       .catch((error) => { console.error(error) })
       .finally(() => {
         setCurrentPage(prevPage => prevPage + 1)
@@ -69,7 +69,7 @@ export function useNewsLogic (): UseNewsLogicReturn {
     else {
       setCards([])
       setCurrentPage(0)
-      getMoreNewsByCategory(null)
+      getMoreNews({ category: null, page: 0 })
     }
   }
 
@@ -78,41 +78,45 @@ export function useNewsLogic (): UseNewsLogicReturn {
 
     favesRepository
       .getAllFaves()
-      .then(favesNews => { setCards(favesNews) })
+      .then(favesNews => {
+        setCards(favesNews)
+        if (favesNews.length < 1) setIsEmpty(true)
+      })
       .catch((error) => { console.error(error) })
       .finally(() => { setLoading(false) })
   }
 
   const addsNewsToFave: AddsNewsToFave = (fave) => {
-    setLoading(true)
-
     favesRepository
       .addFave(fave)
       .then(favesNews => {
         if (isFaveSegment) setCards(favesNews)
       })
       .catch((error) => { console.error(error) })
-      .finally(() => { setLoading(false) })
+      .finally(() => {
+        setIsEmpty(false)
+      })
   }
 
   const removesNewsFaveById: RemovesNewsFaveById = (id) => {
-    setLoading(true)
-
     favesRepository
       .removeFave(id)
       .then(favesNotRemoved => {
-        if (isFaveSegment) setCards(favesNotRemoved)
+        if (isFaveSegment) {
+          setCards(favesNotRemoved)
+          if (favesNotRemoved.length < 1) setIsEmpty(true)
+        }
       })
       .catch((error) => { console.error(error) })
-      .finally(() => { setLoading(false) })
   }
 
   return {
     cards,
     loading,
+    isEmpty,
+    getMoreNews,
     addsNewsToFave,
     changeSegmentValue,
-    removesNewsFaveById,
-    getMoreNewsByCategory
+    removesNewsFaveById
   }
 }

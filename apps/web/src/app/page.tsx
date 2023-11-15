@@ -5,11 +5,19 @@ import { useNewsLogic } from '@/logic'
 import { SEGMENT_OPTIONS } from '@/utils/consts'
 
 export default function Page (): React.JSX.Element {
-  const { cards, loading, addsNewsToFave, changeSegmentValue, removesNewsFaveById } = useNewsLogic()
+  const {
+    cards,
+    loading,
+    isEmpty,
+    addsNewsToFave,
+    changeSegmentValue,
+    removesNewsFaveById
+  } = useNewsLogic()
 
   return <TmMainLayout
     cards={cards}
     loadingCards={loading}
+    emptyCardList={isEmpty}
     segmentOptions={SEGMENT_OPTIONS}
     headerImgSrc='/images/hacker-news.png'
     onAddFaveCard={addsNewsToFave}

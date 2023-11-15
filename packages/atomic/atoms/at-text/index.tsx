@@ -4,7 +4,7 @@ export type AtTextProps = {
   medium?: boolean
   className?: string
   children: React.ReactNode
-  size?: 'sm' | 'base' | 'lg'
+  size?: 'sm' | 'base' | 'lg' | 'xl'
   tag?: keyof React.JSX.IntrinsicElements
 }
 

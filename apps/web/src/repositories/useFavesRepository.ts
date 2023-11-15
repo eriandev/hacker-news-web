@@ -19,6 +19,9 @@ export function useFavesRepository (): UseFavesRepositoryReturn {
 
   const addFave: AddFave = async (fave) => {
     const storagedFaves = await getAllFaves()
+    const isAlreadyInFaves = storagedFaves.findIndex(({ id }) => id === fave.id) !== -1
+    if (isAlreadyInFaves) return storagedFaves
+
     const newFaves = [...storagedFaves, fave]
     localStorage.setItem(STORAGED_FAVES_KEY, JSON.stringify(newFaves))
     return newFaves
