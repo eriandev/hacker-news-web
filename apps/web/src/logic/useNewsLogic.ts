@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
-import { useNewsRepository } from '@/repositories'
+import { useCategoryRepository, useNewsRepository } from '@/repositories'
 import type { News } from '@/types/api'
 
-type GetMoreNews = (opts: { category: string | null, page?: number }) => void
+type GetMoreNews = (opts: { category: string | null }) => void
 interface UseNewsLogicReturn {
   cards: News[]
   loading: boolean
-  isEmpty: boolean
+  selectedCategory: string | null
   getMoreNews: GetMoreNews
 }
 
@@ -15,37 +15,45 @@ export function useNewsLogic (): UseNewsLogicReturn {
   const TOTAL_PAGES = 50
   const [cards, setCards] = useState<News[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-  const [isEmpty, setIsEmpty] = useState<boolean>(false)
   const [currentPage, setCurrentPage] = useState<number>(0)
-  const [currentCategory, setCurrentCategory] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  const newsRepository = useNewsRepository()
+  const { getNews } = useNewsRepository()
+  const { getCategory, updateCategory } = useCategoryRepository()
 
-  useEffect(() => { getMoreNews({ category: null, page: 0 }) }, [])
+  useEffect(() => {
+    const category = getCategory()
+    setSelectedCategory(category)
+    getMoreNews({ category })
+  }, [])
+
   useEffect(() => {
     const triggerAction = (): void => {
       const { body } = document
       const limit = Math.max(body.scrollHeight, body.offsetHeight, body.clientHeight)
       const scrolled = window.scrollY + window.innerHeight
-      const isOnBottom = (limit - 200) <= scrolled
+      const isOnBottom = (limit - 100) <= scrolled
 
-      if (!loading && isOnBottom) getMoreNews({ category: currentCategory })
+      if (!loading && isOnBottom) getMoreNews({ category: getCategory() })
     }
 
     window.addEventListener('scroll', triggerAction)
     return () => { window.removeEventListener('scroll', triggerAction) }
-  }, [loading, currentCategory])
+  }, [loading])
 
-  const getMoreNews: GetMoreNews = ({ category, page }) => {
-    if (currentCategory !== category) setCurrentPage(0)
-    setCurrentCategory(category)
+  const getMoreNews: GetMoreNews = ({ category }) => {
+    const isAnotherCategory = selectedCategory !== category
+    const page = isAnotherCategory ? 0 : currentPage
 
+    setCurrentPage(page)
+    updateCategory(category)
+    setSelectedCategory(category)
+
+    if (isAnotherCategory) setCards([])
     if (currentPage === TOTAL_PAGES) return
-    setIsEmpty(false)
 
     setLoading(true)
-    newsRepository
-      .getNews({ category, page: page ?? currentPage })
+    getNews({ category, page })
       .then(news => { setCards(prevNews => [...prevNews, ...news]) })
       .catch((error) => { console.error(error) })
       .finally(() => {
@@ -57,7 +65,7 @@ export function useNewsLogic (): UseNewsLogicReturn {
   return {
     cards,
     loading,
-    isEmpty,
+    selectedCategory,
     getMoreNews
   }
 }

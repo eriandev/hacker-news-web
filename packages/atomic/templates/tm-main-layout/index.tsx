@@ -1,16 +1,18 @@
+import { MlHeader } from '../../molecules/ml-header'
 import { MlSelect } from '../../molecules/ml-select'
 import { MlSegment } from '../../molecules/ml-segment'
 import { OrCardList } from '../../organisms/or-card-list'
-import { MlHeader, type MlHeaderProps } from '../../molecules/ml-header'
 import type { MlCardProps } from '../../molecules/ml-card'
 
 export type TmMainLayoutProps = {
   cards: MlCardProps[]
+  headerImgSrc: string
   loadingCards: boolean
-  emptyCardList: boolean
-  headerImgSrc: MlHeaderProps['imageSrc']
+  emptyCardList?: boolean
+  optionSelected: string | null
   onDeleteFaveCard: (id: string) => void
   onAddFaveCard: (fave: MlCardProps) => void
+  onChangeCategory: (info: { category: string | null }) => void
 }
 
 export function TmMainLayout ({
@@ -18,10 +20,14 @@ export function TmMainLayout ({
   headerImgSrc,
   loadingCards,
   emptyCardList,
+  optionSelected,
   onAddFaveCard,
-  onDeleteFaveCard
+  onDeleteFaveCard,
+  onChangeCategory
 }: TmMainLayoutProps): React.JSX.Element {
-  const onSelectAction = (option: string): void => {}
+  const onSelectAction = (category: string): void => {
+    onChangeCategory({ category })
+  }
 
   const onFaveCardAction = (infoCard: MlCardProps): void => {
     if (infoCard.isFave) onAddFaveCard(infoCard)
@@ -35,7 +41,7 @@ export function TmMainLayout ({
         <MlSegment active='all' />
       </section>
       <main className='mx-auto w-full max-w-container px-4'>
-        <MlSelect onSelect={onSelectAction} className='mb-10' />
+        <MlSelect optionSelected={optionSelected} onSelect={onSelectAction} className='mb-10' />
         <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} isEmpty={emptyCardList} />
       </main>
     </>

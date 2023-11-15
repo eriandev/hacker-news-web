@@ -14,8 +14,8 @@ export function useNewsRepository (): UseNewsRepositoryReturn {
   const getNews: GetNews = async ({ category, page }) => {
     if (typeof API_URL !== 'string') return []
 
-    const newsApiUrl = new URL(API_URL)
-    if (typeof category === 'string') newsApiUrl.searchParams.append('category', category)
+    const newsApiUrl = new URL(`${API_URL}/search_by_date`)
+    if (typeof category === 'string') newsApiUrl.searchParams.append('query', category)
     newsApiUrl.searchParams.append('page', page.toString())
 
     try {

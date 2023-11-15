@@ -3,25 +3,25 @@ import { useState } from 'react'
 
 import { clsx } from '../../utils'
 import { AtText } from '../../atoms'
-import { ChevronIcon, LogoAngularIcon, LogoReactIcon, LogoVueIcon } from '../../atoms/icons'
+import { ChevronIcon, LogoSvelteIcon, LogoAngularIcon, LogoReactIcon, LogoVueIcon } from '../../atoms/icons'
 
 export type MlSelectProps = {
   className?: string
-  onSelect: (option: string) => void
+  optionSelected?: string | null
+  onSelect?: (option: string) => void
 }
 
-export function MlSelect ({ className = '', onSelect }: MlSelectProps): React.JSX.Element {
+export function MlSelect ({ optionSelected = null, className = '', onSelect = () => {} }: MlSelectProps): React.JSX.Element {
   const [isActive, setIsActive] = useState<boolean>(false)
-  const [optionSelected, setOptionSelected] = useState<string | null>(null)
 
   const options = [
-    { text: 'Angular', Icon: LogoAngularIcon },
-    { text: 'React', Icon: LogoReactIcon },
-    { text: 'Vue', Icon: LogoVueIcon }
+    { value: 'svelte', Icon: LogoSvelteIcon },
+    { value: 'angular', Icon: LogoAngularIcon },
+    { value: 'react', Icon: LogoReactIcon },
+    { value: 'vue', Icon: LogoVueIcon }
   ]
 
   const selectOption = (option: string): void => {
-    setOptionSelected(option)
     setIsActive(false)
     onSelect(option)
   }
@@ -32,7 +32,11 @@ export function MlSelect ({ className = '', onSelect }: MlSelectProps): React.JS
         className='grid cursor-pointer select-none grid-cols-[auto_max-content] items-center gap-2 rounded-[4px] border border-gray-800 bg-white px-3 py-[6px]'
         onClick={() => { setIsActive(prev => !prev) }}
       >
-        <AtText medium tag='span' className='w-max'>
+        <AtText
+          medium
+          tag='span'
+          className={clsx(['w-max', typeof optionSelected === 'string' ? 'capitalize' : ''])}
+        >
           { optionSelected ?? 'Select your news' }
         </AtText>
         <ChevronIcon rotate={ isActive ? '180deg' : '0deg'} />
@@ -41,14 +45,14 @@ export function MlSelect ({ className = '', onSelect }: MlSelectProps): React.JS
         isActive
           ? <ul className='absolute z-10 grid w-full grid-flow-row auto-rows-min bg-white shadow-sm'>
               {
-                options.map(({ Icon, text }) => (
+                options.map(({ Icon, value }) => (
                   <li
-                    key={text}
+                    key={value}
                     className='grid cursor-pointer grid-cols-[1.5rem_auto] items-center gap-3 px-[10px] py-4 capitalize hover:bg-gray-100'
-                    onClick={() => { selectOption(text) }}
+                    onClick={() => { selectOption(value) }}
                   >
                     <Icon width={24} height={24} />
-                    <AtText medium tag='span'>{text}</AtText>
+                    <AtText medium tag='span'>{value}</AtText>
                   </li>
                 ))
               }

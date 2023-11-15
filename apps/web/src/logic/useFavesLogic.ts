@@ -19,15 +19,14 @@ export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLo
   const [loading, setLoading] = useState<boolean>(true)
   const [isEmpty, setIsEmpty] = useState<boolean>(false)
 
-  const favesRepository = useFavesRepository()
+  const { addFave, getAllFaves, removeFave } = useFavesRepository()
 
   useEffect(() => { if (loadFaves) getFavesNews() }, [])
 
   const getFavesNews: GetFavesNews = () => {
     setLoading(true)
 
-    favesRepository
-      .getAllFaves()
+    getAllFaves()
       .then(favesNews => {
         setCards(favesNews)
         if (favesNews.length < 1) setIsEmpty(true)
@@ -37,8 +36,7 @@ export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLo
   }
 
   const addsNewsToFave: AddsNewsToFave = (fave) => {
-    favesRepository
-      .addFave(fave)
+    addFave(fave)
       .then(favesNews => {
         if (loadFaves) {
           setIsEmpty(false)
@@ -49,8 +47,7 @@ export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLo
   }
 
   const removesNewsFaveById: RemovesNewsFaveById = (id) => {
-    favesRepository
-      .removeFave(id)
+    removeFave(id)
       .then(favesNotRemoved => {
         if (loadFaves) {
           setCards(favesNotRemoved)

@@ -1,14 +1,14 @@
+import { MlHeader } from '../../molecules/ml-header'
 import { MlSelect } from '../../molecules/ml-select'
 import { MlSegment } from '../../molecules/ml-segment'
 import { OrCardList } from '../../organisms/or-card-list'
-import { MlHeader, type MlHeaderProps } from '../../molecules/ml-header'
 import type { MlCardProps } from '../../molecules/ml-card'
 
 export type TmFavesLayoutProps = {
   cards: MlCardProps[]
+  headerImgSrc: string
   loadingCards: boolean
   emptyCardList: boolean
-  headerImgSrc: MlHeaderProps['imageSrc']
   onDeleteFaveCard: (id: string) => void
   onAddFaveCard: (fave: MlCardProps) => void
 }
@@ -21,8 +21,6 @@ export function TmFavesLayout ({
   onAddFaveCard,
   onDeleteFaveCard
 }: TmFavesLayoutProps): React.JSX.Element {
-  const onSelectAction = (option: string): void => {}
-
   const onFaveCardAction = (infoCard: MlCardProps): void => {
     if (infoCard.isFave) onAddFaveCard(infoCard)
     else onDeleteFaveCard(infoCard.id)
@@ -35,7 +33,7 @@ export function TmFavesLayout ({
         <MlSegment active='faves' />
       </section>
       <main className='mx-auto w-full max-w-container px-4'>
-        <MlSelect onSelect={onSelectAction} className='mb-10 invisible' />
+        <MlSelect className='mb-10 invisible' />
         <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} isEmpty={emptyCardList} />
       </main>
     </>
