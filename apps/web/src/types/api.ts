@@ -18,6 +18,7 @@ export interface News {
   id: string
   link?: string
   author: string
+  isFave: boolean
   createdAt: string
   storyTitle: string
 }

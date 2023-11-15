@@ -1,13 +1,16 @@
 import { API_URL } from '@/utils/consts'
+import { useFavesRepository } from '@/repositories'
 import { getRelativeTimeFromNow } from '@/utils/time'
 import type { APINewsResponse, News } from '@/types/api'
 
+type GetNews = (params: { category: string | null, page: number }) => Promise<News[]>
 interface UseNewsRepositoryReturn {
   getNews: GetNews
 }
-type GetNews = (params: { category: string | null, page: number }) => Promise<News[]>
 
 export function useNewsRepository (): UseNewsRepositoryReturn {
+  const { getAllFaves } = useFavesRepository()
+
   const getNews: GetNews = async ({ category, page }) => {
     if (typeof API_URL !== 'string') return []
 
@@ -16,16 +19,24 @@ export function useNewsRepository (): UseNewsRepositoryReturn {
     newsApiUrl.searchParams.append('page', page.toString())
 
     try {
+      const favesNews = await getAllFaves()
       const response = await fetch(newsApiUrl)
       const { hits }: APINewsResponse = await response.json()
 
-      return hits.map(hit => ({
-        id: hit.objectID.toString(),
-        author: hit.author,
-        link: hit.story_url,
-        storyTitle: hit.story_title ?? '[No title]',
-        createdAt: getRelativeTimeFromNow(hit.created_at_i)
-      }))
+      return hits.map(hit => {
+        const id = hit.objectID.toString()
+        const createdAt = getRelativeTimeFromNow(hit.created_at_i)
+        const isFave = favesNews.findIndex(fave => fave.id === id) !== -1
+
+        return {
+          id,
+          isFave,
+          createdAt,
+          author: hit.author,
+          link: hit.story_url,
+          storyTitle: hit.story_title ?? '[No title]'
+        }
+      })
     } catch (error) {
       console.error(error)
       return []

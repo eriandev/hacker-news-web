@@ -7,18 +7,19 @@ export type MlCardProps = {
   id: string
   link?: string
   author: string
+  isFave: boolean
   createdAt: string
   storyTitle: string
-  onFav?: (data: { isFav: boolean, info: MlCardProps }) => void
+  onFave?: (data: MlCardProps) => void
 }
 
-export function MlCard ({ id, author, createdAt, link, storyTitle, onFav }: MlCardProps): React.JSX.Element {
-  const [isFav, setIsFav] = useState<boolean>(false)
+export function MlCard ({ id, author, createdAt, link, storyTitle, isFave, onFave }: MlCardProps): React.JSX.Element {
+  const [currentFave, setCurrentFave] = useState<boolean>(isFave)
   const InnerTag = typeof link === 'string' ? 'a' : 'div'
 
   const handlerClick = (): void => {
-    setIsFav(prev => {
-      if (typeof onFav !== 'undefined') onFav({ isFav: !prev, info: { id, author, createdAt, link, storyTitle } })
+    setCurrentFave(prev => {
+      if (typeof onFave !== 'undefined') onFave({ id, author, createdAt, link, storyTitle, isFave: !prev })
       return !prev
     })
   }
@@ -42,7 +43,7 @@ export function MlCard ({ id, author, createdAt, link, storyTitle, onFav }: MlCa
         className="grid h-full w-full place-items-center rounded-br-md rounded-tr-md bg-gray-200 px-[22px]"
         onClick={handlerClick}
       >
-        <HeartIcon fill={isFav} />
+        <HeartIcon fill={currentFave} />
       </aside>
     </article>
   )

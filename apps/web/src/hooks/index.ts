@@ -1,1 +1,0 @@
-export { useNewsService } from './news'

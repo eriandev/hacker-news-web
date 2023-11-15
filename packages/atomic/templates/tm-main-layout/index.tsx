@@ -1,4 +1,3 @@
-'use client'
 import { MlSelect } from '../../molecules/ml-select'
 import { OrCardList } from '../../organisms/or-card-list'
 import { MlHeader, type MlHeaderProps } from '../../molecules/ml-header'
@@ -10,19 +9,30 @@ export type TmMainLayoutProps = {
   loadingCards: boolean
   headerImgSrc: MlHeaderProps['imageSrc']
   segmentOptions: MlSegmentProps['options']
+  onDeleteFaveCard: (id: string) => void
+  onAddFaveCard: (fave: MlCardProps) => void
+  onChangeSegment: (optionValue: string) => void
 }
 
 export function TmMainLayout ({
   cards,
   headerImgSrc,
   loadingCards,
-  segmentOptions
+  segmentOptions,
+  onAddFaveCard,
+  onChangeSegment,
+  onDeleteFaveCard
 }: TmMainLayoutProps): React.JSX.Element {
-  const onSegmentAction = (optionValue: string): void => {}
-
   const onSelectAction = (option: string): void => {}
 
-  const onFavCardAction = (data: { isFav: boolean, info: MlCardProps }): void => {}
+  const onSegmentAction = (optionValue: string): void => {
+    onChangeSegment(optionValue)
+  }
+
+  const onFaveCardAction = (infoCard: MlCardProps): void => {
+    if (infoCard.isFave) onAddFaveCard(infoCard)
+    else onDeleteFaveCard(infoCard.id)
+  }
 
   return (
     <>
@@ -32,7 +42,7 @@ export function TmMainLayout ({
       </section>
       <main className='max-w-container mx-auto w-full'>
         <MlSelect onSelect={onSelectAction} className='mb-10' />
-        <OrCardList cards={cards} onFavCard={onFavCardAction} loading={loadingCards} />
+        <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} />
       </main>
     </>
   )

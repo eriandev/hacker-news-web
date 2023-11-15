@@ -1,1 +1,2 @@
-export { useNewsRepository } from './newsRepository'
+export { useFavesRepository } from './useFavesRepository'
+export { useNewsRepository } from './useNewsRepository'

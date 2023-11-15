@@ -1,0 +1,1 @@
+export { useNewsLogic } from './useNewsLogic'

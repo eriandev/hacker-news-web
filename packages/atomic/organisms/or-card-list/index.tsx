@@ -1,4 +1,3 @@
-'use client'
 import { AtText } from '../../atoms'
 import { MlCard } from '../../molecules'
 import { PackmanIcon } from '../../atoms/icons'
@@ -7,16 +6,16 @@ import type { MlCardProps } from '../../molecules/ml-card'
 export type OrCardListProps = {
   loading?: boolean
   cards: MlCardProps[]
-  onFavCard: (data: { isFav: boolean, info: MlCardProps }) => void
+  onFaveCard: (data: MlCardProps) => void
 }
 
-export function OrCardList ({ cards, loading = false, onFavCard }: OrCardListProps): React.JSX.Element {
+export function OrCardList ({ cards, loading = false, onFaveCard }: OrCardListProps): React.JSX.Element {
   return (
     <>
       <section className='mx-auto grid w-full max-w-container gap-x-10 gap-y-8 lg:grid-cols-2'>
         {
           cards.map((card, index) => (
-            <MlCard key={index} {...card} onFav={onFavCard} />
+            <MlCard key={index} {...card} onFave={onFaveCard} />
           ))
         }
       </section>
