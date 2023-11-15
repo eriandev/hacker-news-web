@@ -8,6 +8,6 @@ export const DATE_UNITS = {
 } as const
 
 export const SEGMENT_OPTIONS = [
-  { text: 'All', value: 'all' },
-  { text: 'My faves', value: 'faves' }
+  { text: 'All', link: '/' },
+  { text: 'My faves', link: '/faves' }
 ]

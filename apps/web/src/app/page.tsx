@@ -1,18 +1,12 @@
 'use client'
 import { TmMainLayout } from 'atomic/templates'
 
-import { useNewsLogic } from '@/logic'
+import { useFavesLogic, useNewsLogic } from '@/logic'
 import { SEGMENT_OPTIONS } from '@/utils/consts'
 
 export default function Page (): React.JSX.Element {
-  const {
-    cards,
-    loading,
-    isEmpty,
-    addsNewsToFave,
-    changeSegmentValue,
-    removesNewsFaveById
-  } = useNewsLogic()
+  const { cards, loading, isEmpty } = useNewsLogic()
+  const { addsNewsToFave, removesNewsFaveById } = useFavesLogic({ loadFaves: false })
 
   return <TmMainLayout
     cards={cards}
@@ -21,7 +15,6 @@ export default function Page (): React.JSX.Element {
     segmentOptions={SEGMENT_OPTIONS}
     headerImgSrc='/images/hacker-news.png'
     onAddFaveCard={addsNewsToFave}
-    onChangeSegment={changeSegmentValue}
     onDeleteFaveCard={removesNewsFaveById}
   />
 }
