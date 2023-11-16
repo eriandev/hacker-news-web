@@ -32,15 +32,16 @@ interface Hit {
   _highlightResult: HighlightResult
   _tags: string[]
   author: string
+  children?: number[]
   comment_text: string
-  created_at: Date
+  created_at: string
   created_at_i: number
   objectID: string
   parent_id: number
   story_id: number
   story_title?: string
   story_url?: string
-  updated_at: Date
+  updated_at: string
 }
 
 interface HighlightResult {

@@ -21,7 +21,7 @@ Temporary Items
 out/
 
 # testing
-/coverage
+coverage/
 
 # production
 build/
