@@ -1,9 +1,9 @@
 'use client'
-import { TmFavesLayout } from 'atomic/templates'
-
 import { useFaves } from '@/hooks'
+import { TmFavesLayout } from 'atomic/templates'
+import type { Component } from 'types/global'
 
-export default function Page (): React.JSX.Element {
+export default function Page (): Component {
   const { cards, isLoading, isEmpty, addsNewsToFave, removesNewsFaveById } = useFaves({ needLoadFaves: true })
 
   return <TmFavesLayout

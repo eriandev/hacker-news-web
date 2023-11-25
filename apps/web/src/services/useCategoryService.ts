@@ -1,11 +1,6 @@
-type Get = () => string | null
-type Update = (category: string | null) => void
-interface UseCategoryServiceReturn {
-  get: Get
-  update: Update
-}
+import type { Get, Update, UseCategoryService } from 'types/web/services'
 
-export function useCategoryService (): UseCategoryServiceReturn {
+export const useCategoryService: UseCategoryService = () => {
   const STORAGED_CATEGORY_KEY = '@storaged_category'
 
   const get: Get = () => {

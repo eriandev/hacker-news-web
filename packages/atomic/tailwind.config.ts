@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'types/tailwindcss'
 
 const config: Config = {
   content: ['./**/*.tsx'],

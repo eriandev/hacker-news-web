@@ -1,20 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import { useFavesService } from '@/services'
-import type { News } from '@/types/api'
+import type { AddsNewsToFave, GetFavesNews, RemovesNewsFaveById, UseFaves } from 'types/web/hooks'
+import type { News } from 'types/api'
 
-type GetFavesNews = () => void
-type AddsNewsToFave = (fave: News) => void
-type RemovesNewsFaveById = (id: string) => void
-interface UseNewsReturn {
-  cards: News[]
-  isEmpty: boolean
-  isLoading: boolean
-  addsNewsToFave: AddsNewsToFave
-  removesNewsFaveById: RemovesNewsFaveById
-}
-
-export function useFaves ({ needLoadFaves }: { needLoadFaves: boolean }): UseNewsReturn {
+export const useFaves: UseFaves = ({ needLoadFaves }) => {
   const [cards, setCards] = useState<News[]>([])
   const [isEmpty, setIsEmpty] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)

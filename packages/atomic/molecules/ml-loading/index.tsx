@@ -1,11 +1,8 @@
 import { AtText } from '../../atoms'
 import { PackmanIcon } from '../../atoms/icons'
+import type { MlLoadingType } from 'types/atomic/molecules'
 
-export type MlLoadingProps = {
-  text: string
-}
-
-export function MlLoading ({ text }: MlLoadingProps): React.JSX.Element {
+export const MlLoading: MlLoadingType = ({ text }) => {
   return (
     <div className="grid h-48 w-full place-items-center text-center">
       <div>

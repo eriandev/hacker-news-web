@@ -2,20 +2,10 @@ import { MlHeader } from '../../molecules/ml-header'
 import { MlSelect } from '../../molecules/ml-select'
 import { MlSegment } from '../../molecules/ml-segment'
 import { OrCardList } from '../../organisms/or-card-list'
-import type { MlCardProps } from '../../molecules/ml-card'
+import type { MlCardProps } from 'types/atomic/molecules'
+import type { TmMainLayoutType } from 'types/atomic/templates'
 
-export type TmMainLayoutProps = {
-  cards: MlCardProps[]
-  headerImgSrc: string
-  isLoadingCards: boolean
-  isEmptyCardList?: boolean
-  optionSelected: string | null
-  onDeleteFaveCard: (id: string) => void
-  onAddFaveCard: (fave: MlCardProps) => void
-  onChangeCategory: (info: { category: string | null }) => void
-}
-
-export function TmMainLayout ({
+export const TmMainLayout: TmMainLayoutType = ({
   cards,
   headerImgSrc,
   isLoadingCards,
@@ -24,7 +14,7 @@ export function TmMainLayout ({
   onAddFaveCard,
   onDeleteFaveCard,
   onChangeCategory
-}: TmMainLayoutProps): React.JSX.Element {
+}) => {
   const onSelectAction = (category: string): void => {
     onChangeCategory({ category })
   }

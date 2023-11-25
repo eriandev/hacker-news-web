@@ -1,8 +1,6 @@
-export type MlHeaderProps = {
-  imageSrc: string
-}
+import type { MlHeaderType } from 'types/atomic/molecules'
 
-export function MlHeader ({ imageSrc }: MlHeaderProps): React.JSX.Element {
+export const MlHeader: MlHeaderType = ({ imageSrc }) => {
   return (
     <header className="bg-header py-11 shadow-md">
       <div className="mx-auto w-full max-w-container px-4">

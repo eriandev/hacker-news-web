@@ -1,10 +1,9 @@
-import type { SVGProps } from 'react'
+import type { IconProps } from 'types/atomic/atoms'
 
-export type IconProps = SVGProps<'svg'>
+export type HeartIconProps = Omit<IconProps, 'fill'> & { fill: boolean }
 export type ChevronIconProps = IconProps & {
   rotate: '0deg' | '90deg' | '180deg' | '270deg'
 }
-export type HeartIconProps = Omit<IconProps, 'fill'> & { fill: boolean }
 
 export const ChevronIcon = ({ height = 24, width = 24, rotate = '0deg' }: IconProps): React.JSX.Element => (
   <svg

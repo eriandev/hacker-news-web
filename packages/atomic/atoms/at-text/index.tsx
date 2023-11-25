@@ -1,20 +1,7 @@
 import { clsx } from '../../utils'
+import type { AtTextType } from 'types/atomic/atoms'
 
-export type AtTextProps = {
-  medium?: boolean
-  className?: string
-  children: React.ReactNode
-  size?: 'sm' | 'base' | 'lg' | 'xl'
-  tag?: keyof React.JSX.IntrinsicElements
-}
-
-export function AtText ({
-  children,
-  className = '',
-  medium = false,
-  tag = 'p',
-  size = 'base'
-}: AtTextProps): React.JSX.Element {
+export const AtText: AtTextType = ({ children, className = '', medium = false, tag = 'p', size = 'base' }) => {
   const CustomTag = tag
   const weightClass = medium ? 'font-medium' : 'font-normal'
 

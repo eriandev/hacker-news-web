@@ -1,15 +1,8 @@
 import { clsx } from '../../utils'
 import { MlCard, MlEmpty, MlLoading } from '../../molecules'
-import type { MlCardProps } from '../../molecules/ml-card'
+import type { OrCardListType } from 'types/atomic/organisms'
 
-export type OrCardListProps = {
-  isEmpty?: boolean
-  isLoading?: boolean
-  cards: MlCardProps[]
-  onFaveCard: (data: MlCardProps) => void
-}
-
-export function OrCardList ({ cards, isEmpty = false, isLoading = true, onFaveCard }: OrCardListProps): React.JSX.Element {
+export const OrCardList: OrCardListType = ({ cards, isEmpty = false, isLoading = true, onFaveCard }) => {
   const containerClass = isEmpty ? 'justify-items-center' : 'gap-x-10 gap-y-8 lg:grid-cols-2'
 
   const CardList = (): React.JSX.Element[] =>

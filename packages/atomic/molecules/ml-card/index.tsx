@@ -2,18 +2,9 @@ import { useState } from 'react'
 
 import { AtText } from '../../atoms'
 import { ClockIcon, HeartIcon } from '../../atoms/icons'
+import type { MlCardType } from 'types/atomic/molecules'
 
-export type MlCardProps = {
-  id: string
-  link?: string
-  author: string
-  isFave: boolean
-  createdAt: string
-  storyTitle: string
-  onFave?: (data: MlCardProps) => void
-}
-
-export function MlCard ({ id, author, createdAt, link, storyTitle, isFave, onFave }: MlCardProps): React.JSX.Element {
+export const MlCard: MlCardType = ({ id, author, createdAt, link, storyTitle, isFave, onFave }) => {
   const [currentFave, setCurrentFave] = useState<boolean>(isFave)
   const InnerTag = typeof link === 'string' ? 'a' : 'div'
 

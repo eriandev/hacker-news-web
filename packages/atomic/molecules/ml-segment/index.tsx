@@ -2,12 +2,9 @@ import Link from 'next/link'
 
 import { clsx } from '../../utils'
 import { AtText } from '../../atoms'
+import type { MlSegmentType } from 'types/atomic/molecules'
 
-export type MlSegmentProps = {
-  active: 'all' | 'faves'
-}
-
-export function MlSegment ({ active }: MlSegmentProps): React.JSX.Element {
+export const MlSegment: MlSegmentType = ({ active }) => {
   const activeClass = 'border-blue text-blue'
   const inactiveClass = 'border-y-gray-400 text-gray-800 first:border-l-gray-400 last:border-r-gray-400'
   const baseClass =

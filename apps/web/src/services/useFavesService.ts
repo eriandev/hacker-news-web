@@ -1,15 +1,6 @@
-import type { News } from '@/types/api'
+import type { Add, GetAll, Remove, UseFavesService } from 'types/web/services'
 
-type GetAll = () => Promise<News[]>
-type Add = (fave: News) => Promise<News[]>
-type Remove = (id: string) => Promise<News[]>
-interface UseFavesServiceReturn {
-  add: Add
-  remove: Remove
-  getAll: GetAll
-}
-
-export function useFavesService (): UseFavesServiceReturn {
+export const useFavesService: UseFavesService = () => {
   const STORAGED_FAVES_KEY = '@storaged_faves'
 
   const getAll: GetAll = async () => {

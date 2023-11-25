@@ -1,14 +1,11 @@
+import type { GetBy, UseNewsService } from 'types/web/services'
+import type { APINewsResponse } from 'types/api'
+
 import { API_URL } from '@/utils/consts'
 import { useFavesService } from '@/services'
 import { getRelativeTimeFromNow } from '@/utils/time'
-import type { APINewsResponse, News } from '@/types/api'
 
-type GetBy = (params: { category: string | null, page: number }) => Promise<News[]>
-interface UseNewsServiceReturn {
-  getBy: GetBy
-}
-
-export function useNewsService (): UseNewsServiceReturn {
+export const useNewsService: UseNewsService = () => {
   const favesService = useFavesService()
 
   const getBy: GetBy = async ({ category, page }) => {

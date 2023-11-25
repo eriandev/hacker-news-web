@@ -2,25 +2,17 @@ import { MlHeader } from '../../molecules/ml-header'
 import { MlSelect } from '../../molecules/ml-select'
 import { MlSegment } from '../../molecules/ml-segment'
 import { OrCardList } from '../../organisms/or-card-list'
-import type { MlCardProps } from '../../molecules/ml-card'
+import type { MlCardProps } from 'types/atomic/molecules'
+import type { TmFavesLayoutType } from 'types/atomic/templates'
 
-export type TmFavesLayoutProps = {
-  cards: MlCardProps[]
-  headerImgSrc: string
-  isLoadingCards: boolean
-  isEmptyCardList: boolean
-  onDeleteFaveCard: (id: string) => void
-  onAddFaveCard: (fave: MlCardProps) => void
-}
-
-export function TmFavesLayout ({
+export const TmFavesLayout: TmFavesLayoutType = ({
   cards,
   headerImgSrc,
   isLoadingCards,
   isEmptyCardList,
   onAddFaveCard,
   onDeleteFaveCard
-}: TmFavesLayoutProps): React.JSX.Element {
+}) => {
   const onFaveCardAction = (infoCard: MlCardProps): void => {
     if (infoCard.isFave) onAddFaveCard(infoCard)
     else onDeleteFaveCard(infoCard.id)

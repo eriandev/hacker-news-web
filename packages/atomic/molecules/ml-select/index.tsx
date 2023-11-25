@@ -4,18 +4,9 @@ import { useState } from 'react'
 import { clsx } from '../../utils'
 import { AtText } from '../../atoms'
 import { ChevronIcon, LogoSvelteIcon, LogoAngularIcon, LogoReactIcon, LogoVueIcon } from '../../atoms/icons'
+import type { MlSelectType } from 'types/atomic/molecules'
 
-export type MlSelectProps = {
-  className?: string
-  optionSelected?: string | null
-  onSelect?: (option: string) => void
-}
-
-export function MlSelect ({
-  optionSelected = null,
-  className = '',
-  onSelect = () => {}
-}: MlSelectProps): React.JSX.Element {
+export const MlSelect: MlSelectType = ({ optionSelected = null, className = '', onSelect = () => {} }) => {
   const [isActive, setIsActive] = useState<boolean>(false)
 
   const options = [

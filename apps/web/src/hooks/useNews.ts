@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import { useCategoryService, useNewsService } from '@/services'
-import type { News } from '@/types/api'
+import type { GetMoreNews, UseNews } from 'types/web/hooks'
+import type { News } from 'types/api'
 
-type GetMoreNews = (opts: { category: string | null }) => void
-interface UseNewsReturn {
-  cards: News[]
-  isLoading: boolean
-  selectedCategory: string | null
-  getMoreNews: GetMoreNews
-}
-
-export function useNews (): UseNewsReturn {
+export const useNews: UseNews = () => {
   const TOTAL_PAGES = 50
   const [cards, setCards] = useState<News[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)

@@ -1,12 +1,8 @@
 import { AtText } from '../../atoms'
 import { UFOAbductingHeartIcon } from '../../atoms/icons'
+import type { MlEmptyType } from 'types/atomic/molecules'
 
-export type MlEmptyProps = {
-  title: string
-  subtitle: string
-}
-
-export function MlEmpty ({ title, subtitle }: MlEmptyProps): React.JSX.Element {
+export const MlEmpty: MlEmptyType = ({ title, subtitle }) => {
   return (
     <div className="text-center">
       <UFOAbductingHeartIcon width={256} height={256} />
