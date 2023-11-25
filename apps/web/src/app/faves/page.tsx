@@ -4,12 +4,12 @@ import { TmFavesLayout } from 'atomic/templates'
 import { useFavesLogic } from '@/logic'
 
 export default function Page (): React.JSX.Element {
-  const { cards, loading, isEmpty, addsNewsToFave, removesNewsFaveById } = useFavesLogic({ loadFaves: true })
+  const { cards, isLoading, isEmpty, addsNewsToFave, removesNewsFaveById } = useFavesLogic({ loadFaves: true })
 
   return <TmFavesLayout
     cards={cards}
-    loadingCards={loading}
-    emptyCardList={isEmpty}
+    isEmptyCardList={isEmpty}
+    isLoadingCards={isLoading}
     headerImgSrc='/images/hacker-news.png'
     onAddFaveCard={addsNewsToFave}
     onDeleteFaveCard={removesNewsFaveById}

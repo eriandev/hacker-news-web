@@ -6,7 +6,7 @@ import type { News } from '@/types/api'
 type GetMoreNews = (opts: { category: string | null }) => void
 interface UseNewsLogicReturn {
   cards: News[]
-  loading: boolean
+  isLoading: boolean
   selectedCategory: string | null
   getMoreNews: GetMoreNews
 }
@@ -14,7 +14,7 @@ interface UseNewsLogicReturn {
 export function useNewsLogic (): UseNewsLogicReturn {
   const TOTAL_PAGES = 50
   const [cards, setCards] = useState<News[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
@@ -34,12 +34,12 @@ export function useNewsLogic (): UseNewsLogicReturn {
       const scrolled = window.scrollY + window.innerHeight
       const isOnBottom = (limit - 100) <= scrolled
 
-      if (!loading && isOnBottom) getMoreNews({ category: getCategory() })
+      if (!isLoading && isOnBottom) getMoreNews({ category: getCategory() })
     }
 
     window.addEventListener('scroll', triggerAction)
     return () => { window.removeEventListener('scroll', triggerAction) }
-  }, [loading])
+  }, [isLoading])
 
   const getMoreNews: GetMoreNews = ({ category }) => {
     const isAnotherCategory = selectedCategory !== category
@@ -52,19 +52,19 @@ export function useNewsLogic (): UseNewsLogicReturn {
     if (isAnotherCategory) setCards([])
     if (currentPage === TOTAL_PAGES) return
 
-    setLoading(true)
+    setIsLoading(true)
     getNews({ category, page })
       .then(news => { setCards(prevNews => [...prevNews, ...news]) })
       .catch((error) => { console.error(error) })
       .finally(() => {
         setCurrentPage(prevPage => prevPage + 1)
-        setLoading(false)
+        setIsLoading(false)
       })
   }
 
   return {
     cards,
-    loading,
+    isLoading,
     selectedCategory,
     getMoreNews
   }

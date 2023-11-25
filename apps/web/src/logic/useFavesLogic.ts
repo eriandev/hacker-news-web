@@ -8,23 +8,23 @@ type AddsNewsToFave = (fave: News) => void
 type RemovesNewsFaveById = (id: string) => void
 interface UseNewsLogicReturn {
   cards: News[]
-  loading: boolean
   isEmpty: boolean
+  isLoading: boolean
   addsNewsToFave: AddsNewsToFave
   removesNewsFaveById: RemovesNewsFaveById
 }
 
 export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLogicReturn {
   const [cards, setCards] = useState<News[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
   const [isEmpty, setIsEmpty] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const { addFave, getAllFaves, removeFave } = useFavesRepository()
 
   useEffect(() => { if (loadFaves) getFavesNews() }, [])
 
   const getFavesNews: GetFavesNews = () => {
-    setLoading(true)
+    setIsLoading(true)
 
     getAllFaves()
       .then(favesNews => {
@@ -32,7 +32,7 @@ export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLo
         if (favesNews.length < 1) setIsEmpty(true)
       })
       .catch((error) => { console.error(error) })
-      .finally(() => { setLoading(false) })
+      .finally(() => { setIsLoading(false) })
   }
 
   const addsNewsToFave: AddsNewsToFave = (fave) => {
@@ -59,8 +59,8 @@ export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLo
 
   return {
     cards,
-    loading,
     isEmpty,
+    isLoading,
     addsNewsToFave,
     removesNewsFaveById
   }

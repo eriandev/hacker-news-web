@@ -9,7 +9,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     cards: { control: 'object' },
-    loading: {
+    isLoading: {
       control: 'boolean',
       defaultValue: true
     },
@@ -62,7 +62,7 @@ export const Empty: Story = {
   args: {
     cards,
     isEmpty: true,
-    loading: false,
+    isLoading: false,
     onFaveCard: (data) => { console.log(data) }
   }
 }
@@ -70,7 +70,7 @@ export const Empty: Story = {
 export const Loading: Story = {
   args: {
     cards: [],
-    loading: true,
+    isLoading: true,
     onFaveCard: (data) => { console.log(data) }
   }
 }
@@ -78,7 +78,7 @@ export const Loading: Story = {
 export const Loaded: Story = {
   args: {
     cards,
-    loading: false,
+    isLoading: false,
     onFaveCard: (data) => { console.log(data) }
   }
 }

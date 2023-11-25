@@ -7,8 +7,8 @@ import type { MlCardProps } from '../../molecules/ml-card'
 export type TmMainLayoutProps = {
   cards: MlCardProps[]
   headerImgSrc: string
-  loadingCards: boolean
-  emptyCardList?: boolean
+  isLoadingCards: boolean
+  isEmptyCardList?: boolean
   optionSelected: string | null
   onDeleteFaveCard: (id: string) => void
   onAddFaveCard: (fave: MlCardProps) => void
@@ -18,9 +18,9 @@ export type TmMainLayoutProps = {
 export function TmMainLayout ({
   cards,
   headerImgSrc,
-  loadingCards,
-  emptyCardList,
+  isLoadingCards,
   optionSelected,
+  isEmptyCardList,
   onAddFaveCard,
   onDeleteFaveCard,
   onChangeCategory
@@ -42,7 +42,7 @@ export function TmMainLayout ({
       </section>
       <main className="mx-auto w-full max-w-container px-4">
         <MlSelect optionSelected={optionSelected} onSelect={onSelectAction} className="mb-10" />
-        <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} isEmpty={emptyCardList} />
+        <OrCardList cards={cards} onFaveCard={onFaveCardAction} isLoading={isLoadingCards} isEmpty={isEmptyCardList} />
       </main>
     </>
   )

@@ -7,8 +7,8 @@ import type { MlCardProps } from '../../molecules/ml-card'
 export type TmFavesLayoutProps = {
   cards: MlCardProps[]
   headerImgSrc: string
-  loadingCards: boolean
-  emptyCardList: boolean
+  isLoadingCards: boolean
+  isEmptyCardList: boolean
   onDeleteFaveCard: (id: string) => void
   onAddFaveCard: (fave: MlCardProps) => void
 }
@@ -16,8 +16,8 @@ export type TmFavesLayoutProps = {
 export function TmFavesLayout ({
   cards,
   headerImgSrc,
-  loadingCards,
-  emptyCardList,
+  isLoadingCards,
+  isEmptyCardList,
   onAddFaveCard,
   onDeleteFaveCard
 }: TmFavesLayoutProps): React.JSX.Element {
@@ -34,7 +34,7 @@ export function TmFavesLayout ({
       </section>
       <main className="mx-auto w-full max-w-container px-4">
         <MlSelect className="invisible mb-10" />
-        <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} isEmpty={emptyCardList} />
+        <OrCardList cards={cards} onFaveCard={onFaveCardAction} isLoading={isLoadingCards} isEmpty={isEmptyCardList} />
       </main>
     </>
   )
