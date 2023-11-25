@@ -6,7 +6,7 @@ const config: Config = {
 
   theme: {
     fontFamily: {
-      roboto: ['Roboto', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif']
+      roboto: ['Roboto', 'Arial', 'sans-serif']
     },
 
     fontSize: {
@@ -63,7 +63,28 @@ const config: Config = {
       floating: 'float 6s ease-in-out infinite'
     },
 
-    extend: {}
+    extend: {
+      height: {
+        22: '90px'
+      },
+
+      minWidth: {
+        96: '6rem'
+      },
+
+      padding: {
+        5.5: '1.375rem',
+        6.5: '1.625rem'
+      },
+
+      gridTemplateColumns: {
+        'auto-max': 'auto max-content'
+      },
+
+      gridTemplateRows: {
+        'max-2': 'repeat(2,max-content)'
+      }
+    }
   },
 
   plugins: []

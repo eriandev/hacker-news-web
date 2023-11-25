@@ -37,11 +37,11 @@ export function TmMainLayout ({
   return (
     <>
       <MlHeader imageSrc={headerImgSrc} />
-      <section className='mx-auto my-16 flex w-full max-w-container justify-center px-4'>
-        <MlSegment active='all' />
+      <section className="mx-auto my-16 flex w-full max-w-container justify-center px-4">
+        <MlSegment active="all" />
       </section>
-      <main className='mx-auto w-full max-w-container px-4'>
-        <MlSelect optionSelected={optionSelected} onSelect={onSelectAction} className='mb-10' />
+      <main className="mx-auto w-full max-w-container px-4">
+        <MlSelect optionSelected={optionSelected} onSelect={onSelectAction} className="mb-10" />
         <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} isEmpty={emptyCardList} />
       </main>
     </>

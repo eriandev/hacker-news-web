@@ -7,10 +7,12 @@ export type MlLoadingProps = {
 
 export function MlLoading ({ text }: MlLoadingProps): React.JSX.Element {
   return (
-    <div className='grid h-48 w-full place-items-center text-center'>
+    <div className="grid h-48 w-full place-items-center text-center">
       <div>
         <PackmanIcon width={128} height={128} />
-        <AtText medium tag='span' size='xl'>{text}</AtText>
+        <AtText medium tag="span" size="xl">
+          {text}
+        </AtText>
       </div>
     </div>
   )

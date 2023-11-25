@@ -11,7 +11,11 @@ export type MlSelectProps = {
   onSelect?: (option: string) => void
 }
 
-export function MlSelect ({ optionSelected = null, className = '', onSelect = () => {} }: MlSelectProps): React.JSX.Element {
+export function MlSelect ({
+  optionSelected = null,
+  className = '',
+  onSelect = () => {}
+}: MlSelectProps): React.JSX.Element {
   const [isActive, setIsActive] = useState<boolean>(false)
 
   const options = [
@@ -27,38 +31,38 @@ export function MlSelect ({ optionSelected = null, className = '', onSelect = ()
   }
 
   return (
-    <div className={clsx(['relative w-[240px] text-black', className])}>
+    <div className={clsx(['relative w-60 text-black', className])}>
       <header
-        className='grid cursor-pointer select-none grid-cols-[auto_max-content] items-center gap-2 rounded-[4px] border border-gray-800 bg-white px-3 py-[6px]'
-        onClick={() => { setIsActive(prev => !prev) }}
+        className="grid cursor-pointer select-none grid-cols-auto-max items-center gap-2 rounded border border-gray-800 bg-white px-3 py-1.5"
+        onClick={() => {
+          setIsActive((prev) => !prev)
+        }}
       >
-        <AtText
-          medium
-          tag='span'
-          className={clsx(['w-max', typeof optionSelected === 'string' ? 'capitalize' : ''])}
-        >
-          { optionSelected ?? 'Select your news' }
+        <AtText medium tag="span" className={clsx(['w-max', typeof optionSelected === 'string' ? 'capitalize' : ''])}>
+          {optionSelected ?? 'Select your news'}
         </AtText>
-        <ChevronIcon rotate={ isActive ? '180deg' : '0deg'} />
+        <ChevronIcon rotate={isActive ? '180deg' : '0deg'} />
       </header>
-      {
-        isActive
-          ? <ul className='absolute z-10 grid w-full grid-flow-row auto-rows-min bg-white shadow-sm'>
-              {
-                options.map(({ Icon, value }) => (
-                  <li
-                    key={value}
-                    className='grid cursor-pointer grid-cols-[1.5rem_auto] items-center gap-3 px-[10px] py-4 capitalize hover:bg-gray-100'
-                    onClick={() => { selectOption(value) }}
-                  >
-                    <Icon width={24} height={24} />
-                    <AtText medium tag='span'>{value}</AtText>
-                  </li>
-                ))
-              }
-            </ul>
-          : null
-      }
+      {isActive
+        ? (
+        <ul className="absolute z-10 grid w-full grid-flow-row auto-rows-min bg-white shadow-sm">
+          {options.map(({ Icon, value }) => (
+            <li
+              key={value}
+              className="grid cursor-pointer grid-cols-[1.5rem_auto] items-center gap-3 px-2.5 py-4 capitalize hover:bg-gray-100"
+              onClick={() => {
+                selectOption(value)
+              }}
+            >
+              <Icon width={24} height={24} />
+              <AtText medium tag="span">
+                {value}
+              </AtText>
+            </li>
+          ))}
+        </ul>
+          )
+        : null}
     </div>
   )
 }

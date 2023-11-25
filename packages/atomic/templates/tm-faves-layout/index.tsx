@@ -29,11 +29,11 @@ export function TmFavesLayout ({
   return (
     <>
       <MlHeader imageSrc={headerImgSrc} />
-      <section className='mx-auto my-16 flex w-full max-w-container justify-center px-4'>
-        <MlSegment active='faves' />
+      <section className="mx-auto my-16 flex w-full max-w-container justify-center px-4">
+        <MlSegment active="faves" />
       </section>
-      <main className='mx-auto w-full max-w-container px-4'>
-        <MlSelect className='mb-10 invisible' />
+      <main className="mx-auto w-full max-w-container px-4">
+        <MlSelect className="invisible mb-10" />
         <OrCardList cards={cards} onFaveCard={onFaveCardAction} loading={loadingCards} isEmpty={emptyCardList} />
       </main>
     </>
