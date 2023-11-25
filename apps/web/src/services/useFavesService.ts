@@ -1,24 +1,24 @@
 import type { News } from '@/types/api'
 
-type GetAllFaves = () => Promise<News[]>
-type AddFave = (fave: News) => Promise<News[]>
-type RemoveFave = (id: string) => Promise<News[]>
-interface UseFavesRepositoryReturn {
-  addFave: AddFave
-  removeFave: RemoveFave
-  getAllFaves: GetAllFaves
+type GetAll = () => Promise<News[]>
+type Add = (fave: News) => Promise<News[]>
+type Remove = (id: string) => Promise<News[]>
+interface UseFavesServiceReturn {
+  add: Add
+  remove: Remove
+  getAll: GetAll
 }
 
-export function useFavesRepository (): UseFavesRepositoryReturn {
+export function useFavesService (): UseFavesServiceReturn {
   const STORAGED_FAVES_KEY = '@storaged_faves'
 
-  const getAllFaves: GetAllFaves = async () => {
+  const getAll: GetAll = async () => {
     const storagedFaves = localStorage.getItem(STORAGED_FAVES_KEY)
     return typeof storagedFaves === 'string' ? JSON.parse(storagedFaves) : []
   }
 
-  const addFave: AddFave = async (fave) => {
-    const storagedFaves = await getAllFaves()
+  const add: Add = async (fave) => {
+    const storagedFaves = await getAll()
     const isAlreadyInFaves = storagedFaves.findIndex(({ id }) => id === fave.id) !== -1
     if (isAlreadyInFaves) return storagedFaves
 
@@ -27,16 +27,16 @@ export function useFavesRepository (): UseFavesRepositoryReturn {
     return newFaves
   }
 
-  const removeFave: RemoveFave = async (id) => {
-    const storagedFaves = await getAllFaves()
+  const remove: Remove = async (id) => {
+    const storagedFaves = await getAll()
     const newFaves = storagedFaves.filter(fave => fave.id !== id)
     localStorage.setItem(STORAGED_FAVES_KEY, JSON.stringify(newFaves))
     return newFaves
   }
 
   return {
-    addFave,
-    removeFave,
-    getAllFaves
+    add,
+    remove,
+    getAll
   }
 }

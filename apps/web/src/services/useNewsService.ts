@@ -1,17 +1,17 @@
 import { API_URL } from '@/utils/consts'
-import { useFavesRepository } from '@/repositories'
+import { useFavesService } from '@/services'
 import { getRelativeTimeFromNow } from '@/utils/time'
 import type { APINewsResponse, News } from '@/types/api'
 
-type GetNews = (params: { category: string | null, page: number }) => Promise<News[]>
-interface UseNewsRepositoryReturn {
-  getNews: GetNews
+type GetBy = (params: { category: string | null, page: number }) => Promise<News[]>
+interface UseNewsServiceReturn {
+  getBy: GetBy
 }
 
-export function useNewsRepository (): UseNewsRepositoryReturn {
-  const { getAllFaves } = useFavesRepository()
+export function useNewsService (): UseNewsServiceReturn {
+  const favesService = useFavesService()
 
-  const getNews: GetNews = async ({ category, page }) => {
+  const getBy: GetBy = async ({ category, page }) => {
     if (typeof API_URL !== 'string') return []
 
     const newsApiUrl = new URL(`${API_URL}/search_by_date`)
@@ -19,7 +19,7 @@ export function useNewsRepository (): UseNewsRepositoryReturn {
     newsApiUrl.searchParams.append('page', page.toString())
 
     try {
-      const favesNews = await getAllFaves()
+      const favesNews = await favesService.getAll()
       const response = await fetch(newsApiUrl)
       const { hits }: APINewsResponse = await response.json()
 
@@ -43,5 +43,5 @@ export function useNewsRepository (): UseNewsRepositoryReturn {
     }
   }
 
-  return { getNews }
+  return { getBy }
 }

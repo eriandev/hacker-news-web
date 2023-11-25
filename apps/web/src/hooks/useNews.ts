@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useCategoryRepository, useNewsRepository } from '@/repositories'
+import { useCategoryService, useNewsService } from '@/services'
 import type { News } from '@/types/api'
 
 type GetMoreNews = (opts: { category: string | null }) => void
@@ -18,11 +18,11 @@ export function useNews (): UseNewsReturn {
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  const { getNews } = useNewsRepository()
-  const { getCategory, updateCategory } = useCategoryRepository()
+  const newsService = useNewsService()
+  const categoryService = useCategoryService()
 
   useEffect(() => {
-    const category = getCategory()
+    const category = categoryService.get()
     setSelectedCategory(category)
     getMoreNews({ category })
   }, [])
@@ -34,7 +34,7 @@ export function useNews (): UseNewsReturn {
       const scrolled = window.scrollY + window.innerHeight
       const isOnBottom = (limit - 100) <= scrolled
 
-      if (!isLoading && isOnBottom) getMoreNews({ category: getCategory() })
+      if (!isLoading && isOnBottom) getMoreNews({ category: categoryService.get() })
     }
 
     window.addEventListener('scroll', triggerAction)
@@ -46,14 +46,15 @@ export function useNews (): UseNewsReturn {
     const page = isAnotherCategory ? 0 : currentPage
 
     setCurrentPage(page)
-    updateCategory(category)
     setSelectedCategory(category)
+    categoryService.update(category)
 
     if (isAnotherCategory) setCards([])
     if (currentPage === TOTAL_PAGES) return
 
     setIsLoading(true)
-    getNews({ category, page })
+    newsService
+      .getBy({ category, page })
       .then(news => { setCards(prevNews => [...prevNews, ...news]) })
       .catch((error) => { console.error(error) })
       .finally(() => {

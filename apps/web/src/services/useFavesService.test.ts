@@ -2,10 +2,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, renderHook, waitFor } from '@testing-library/react/pure'
 
 import { mockAnotherNews, mockNewsList } from '__mocks__/news'
-import { useFavesRepository } from './useFavesRepository'
 import { haveSameElements } from '@/utils/validation'
+import { useFavesService } from './useFavesService'
 
-describe('useFavesRepository hook', () => {
+describe('useFavesService hook', () => {
   afterEach(() => {
     cleanup()
     localStorage.clear()
@@ -18,22 +18,22 @@ describe('useFavesRepository hook', () => {
   const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
 
   it('should get all faves news correctly', async () => {
-    const { result } = renderHook(() => useFavesRepository())
+    const { result } = renderHook(() => useFavesService())
     getItemSpy.mockReturnValue(JSON.stringify(mockNewsList))
 
-    act(() => { void result.current.getAllFaves() })
+    act(() => { void result.current.getAll() })
 
     await waitFor(async () => {
       expect(getItemSpy).toHaveBeenCalledWith(STORAGED_FAVES_KEY)
-      expect(await result.current.getAllFaves()).toEqual(mockNewsList)
+      expect(await result.current.getAll()).toEqual(mockNewsList)
     })
   })
 
   it('should add one fave news correctly', async () => {
-    const { result } = renderHook(() => useFavesRepository())
+    const { result } = renderHook(() => useFavesService())
     getItemSpy.mockReturnValue(JSON.stringify(mockNewsList))
 
-    act(() => { void result.current.addFave(mockAnotherNews) })
+    act(() => { void result.current.add(mockAnotherNews) })
 
     await waitFor(async () => {
       const newsFaveWithOneMore = [...mockNewsList, mockAnotherNews]
@@ -41,8 +41,8 @@ describe('useFavesRepository hook', () => {
       expect(getItemSpy).toHaveBeenCalledWith(STORAGED_FAVES_KEY)
       expect(setItemSpy).toHaveBeenCalledWith(STORAGED_FAVES_KEY, JSON.stringify(newsFaveWithOneMore))
 
-      const addFaveResult = await result.current.addFave(mockAnotherNews)
-      const receivedIds = addFaveResult.map(card => card.id)
+      const addResult = await result.current.add(mockAnotherNews)
+      const receivedIds = addResult.map(card => card.id)
       const expectedIds = newsFaveWithOneMore.map(mockCard => mockCard.id)
       const haveSameIds = haveSameElements(expectedIds, receivedIds)
 
@@ -51,10 +51,10 @@ describe('useFavesRepository hook', () => {
   })
 
   it('should remove one fave news correctly', async () => {
-    const { result } = renderHook(() => useFavesRepository())
+    const { result } = renderHook(() => useFavesService())
     getItemSpy.mockReturnValue(JSON.stringify(mockNewsList))
 
-    act(() => { void result.current.removeFave('5') })
+    act(() => { void result.current.remove('5') })
 
     await waitFor(async () => {
       const newsFaveWithOneLess = mockNewsList.slice(0, 4)
@@ -62,8 +62,8 @@ describe('useFavesRepository hook', () => {
       expect(getItemSpy).toHaveBeenCalledWith(STORAGED_FAVES_KEY)
       expect(setItemSpy).toHaveBeenCalledWith(STORAGED_FAVES_KEY, JSON.stringify(newsFaveWithOneLess))
 
-      const removeFaveResult = await result.current.removeFave('5')
-      const receivedIds = removeFaveResult.map(card => card.id)
+      const removeResult = await result.current.remove('5')
+      const receivedIds = removeResult.map(card => card.id)
       const expectedIds = newsFaveWithOneLess.map(mockCard => mockCard.id)
       const haveSameIds = haveSameElements(expectedIds, receivedIds)
 

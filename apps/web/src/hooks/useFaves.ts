@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useFavesRepository } from '@/repositories'
+import { useFavesService } from '@/services'
 import type { News } from '@/types/api'
 
 type GetFavesNews = () => void
@@ -19,14 +19,15 @@ export function useFaves ({ needLoadFaves }: { needLoadFaves: boolean }): UseNew
   const [isEmpty, setIsEmpty] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const { addFave, getAllFaves, removeFave } = useFavesRepository()
+  const favesService = useFavesService()
 
   useEffect(() => { if (needLoadFaves) getFavesNews() }, [])
 
   const getFavesNews: GetFavesNews = () => {
     setIsLoading(true)
 
-    getAllFaves()
+    favesService
+      .getAll()
       .then(favesNews => {
         setCards(favesNews)
         if (favesNews.length < 1) setIsEmpty(true)
@@ -36,7 +37,8 @@ export function useFaves ({ needLoadFaves }: { needLoadFaves: boolean }): UseNew
   }
 
   const addsNewsToFave: AddsNewsToFave = (fave) => {
-    addFave(fave)
+    favesService
+      .add(fave)
       .then(favesNews => {
         if (needLoadFaves) {
           setIsEmpty(false)
@@ -47,7 +49,8 @@ export function useFaves ({ needLoadFaves }: { needLoadFaves: boolean }): UseNew
   }
 
   const removesNewsFaveById: RemovesNewsFaveById = (id) => {
-    removeFave(id)
+    favesService
+      .remove(id)
       .then(favesNotRemoved => {
         if (needLoadFaves) {
           setCards(favesNotRemoved)
