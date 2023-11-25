@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, renderHook, waitFor } from '@testing-library/react/pure'
 
 import { mockAnotherNews, mockNewsList } from '__mocks__/news'
-import { useFavesLogic } from './useFavesLogic'
+import { useFaves } from './useFaves'
 
 vi.mock('@/repositories', async () => {
   const originalModule = await vi.importActual<Record<string, any>>('@/repositories')
@@ -18,7 +18,7 @@ vi.mock('@/repositories', async () => {
   }
 })
 
-describe('useFavesLogic hook', () => {
+describe('useFaves hook', () => {
   afterEach(() => {
     cleanup()
   })
@@ -27,7 +27,7 @@ describe('useFavesLogic hook', () => {
     const { useFavesRepository } = await import('@/repositories')
     const { addFave, getAllFaves } = useFavesRepository()
 
-    const { result } = renderHook(() => useFavesLogic({ loadFaves: true }))
+    const { result } = renderHook(() => useFaves({ needLoadFaves: true }))
 
     act(() => { result.current.addsNewsToFave(mockAnotherNews) })
 
@@ -43,7 +43,7 @@ describe('useFavesLogic hook', () => {
     const { useFavesRepository } = await import('@/repositories')
     const { removeFave, getAllFaves } = useFavesRepository()
 
-    const { result } = renderHook(() => useFavesLogic({ loadFaves: true }))
+    const { result } = renderHook(() => useFaves({ needLoadFaves: true }))
 
     act(() => { result.current.removesNewsFaveById('5') })
 

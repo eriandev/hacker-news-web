@@ -6,7 +6,7 @@ import type { News } from '@/types/api'
 type GetFavesNews = () => void
 type AddsNewsToFave = (fave: News) => void
 type RemovesNewsFaveById = (id: string) => void
-interface UseNewsLogicReturn {
+interface UseNewsReturn {
   cards: News[]
   isEmpty: boolean
   isLoading: boolean
@@ -14,14 +14,14 @@ interface UseNewsLogicReturn {
   removesNewsFaveById: RemovesNewsFaveById
 }
 
-export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLogicReturn {
+export function useFaves ({ needLoadFaves }: { needLoadFaves: boolean }): UseNewsReturn {
   const [cards, setCards] = useState<News[]>([])
   const [isEmpty, setIsEmpty] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const { addFave, getAllFaves, removeFave } = useFavesRepository()
 
-  useEffect(() => { if (loadFaves) getFavesNews() }, [])
+  useEffect(() => { if (needLoadFaves) getFavesNews() }, [])
 
   const getFavesNews: GetFavesNews = () => {
     setIsLoading(true)
@@ -38,7 +38,7 @@ export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLo
   const addsNewsToFave: AddsNewsToFave = (fave) => {
     addFave(fave)
       .then(favesNews => {
-        if (loadFaves) {
+        if (needLoadFaves) {
           setIsEmpty(false)
           setCards(favesNews)
         }
@@ -49,7 +49,7 @@ export function useFavesLogic ({ loadFaves }: { loadFaves: boolean }): UseNewsLo
   const removesNewsFaveById: RemovesNewsFaveById = (id) => {
     removeFave(id)
       .then(favesNotRemoved => {
-        if (loadFaves) {
+        if (needLoadFaves) {
           setCards(favesNotRemoved)
           if (favesNotRemoved.length < 1) setIsEmpty(true)
         }

@@ -4,14 +4,14 @@ import { useCategoryRepository, useNewsRepository } from '@/repositories'
 import type { News } from '@/types/api'
 
 type GetMoreNews = (opts: { category: string | null }) => void
-interface UseNewsLogicReturn {
+interface UseNewsReturn {
   cards: News[]
   isLoading: boolean
   selectedCategory: string | null
   getMoreNews: GetMoreNews
 }
 
-export function useNewsLogic (): UseNewsLogicReturn {
+export function useNews (): UseNewsReturn {
   const TOTAL_PAGES = 50
   const [cards, setCards] = useState<News[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)

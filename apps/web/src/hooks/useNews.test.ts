@@ -3,7 +3,7 @@ import { act, cleanup, renderHook, waitFor } from '@testing-library/react/pure'
 
 import { haveSameElements } from '@/utils/validation'
 import { mockNewsList } from '__mocks__/news'
-import { useNewsLogic } from './useNewsLogic'
+import { useNews } from './useNews'
 
 vi.mock('@/repositories', async () => {
   const originalModule = await vi.importActual<Record<string, any>>('@/repositories')
@@ -16,7 +16,7 @@ vi.mock('@/repositories', async () => {
   }
 })
 
-describe('useNewsLogic hook', () => {
+describe('useNews hook', () => {
   afterEach(() => {
     cleanup()
   })
@@ -27,7 +27,7 @@ describe('useNewsLogic hook', () => {
     const { useNewsRepository } = await import('@/repositories')
     const { getNews } = useNewsRepository()
 
-    const { result } = renderHook(() => useNewsLogic())
+    const { result } = renderHook(() => useNews())
 
     await waitFor(() => {
       expect(getNews).toHaveBeenCalledWith({ category: null, page: 0 })
@@ -44,7 +44,7 @@ describe('useNewsLogic hook', () => {
     const { useNewsRepository } = await import('@/repositories')
     const { getNews } = useNewsRepository()
 
-    const { result } = renderHook(() => useNewsLogic())
+    const { result } = renderHook(() => useNews())
 
     await waitFor(() => {
       expect(getNews).toHaveBeenCalledWith({ category: null, page: 0 })
